@@ -1,0 +1,37 @@
+[workspace]
+authors = ["sige0002 <yu092519703@gmail.com>"]
+channels = ["conda-forge"]
+name = "lerobot_pixi"
+platforms = ["osx-arm64","linux-64"]
+version = "0.1.0"
+
+[environments]
+default = { features = ["pi0"] }
+pi0 = { features = ["pi0"] }
+groot = { features = ["groot"] }
+
+[tasks]
+
+[dependencies]
+python = ">=3.11.0,<3.12"
+ffmpeg = "==7.1.1"
+pip = ">=25.3,<26"
+
+[feature.pi0.pypi-dependencies]
+lerobot = { path = "./lerobot", editable = true, extras = ["feetech","pi"] }
+
+[feature.groot.pypi-dependencies]
+lerobot = { path = "./lerobot", editable = true, extras = ["groot"] }
+torch = ">=2.2.1,<2.8.0"
+torchvision = ">=0.21.0,<0.23.0"
+ninja = "*"
+packaging = ">=24.2,<26.0"
+
+[tasks.clone_lerobot]
+cmd = "bash scripts/clone_lerobot.sh"
+
+[tasks.install_flash_attn]
+cmd = "pip install --no-build-isolation \"flash-attn>=2.5.9,<3.0.0\""
+
+[tasks.install_editable]
+# cmd = "python -m pip install -e ./lerobot"
